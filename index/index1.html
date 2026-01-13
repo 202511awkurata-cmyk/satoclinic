@@ -1,0 +1,885 @@
+<!doctype html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>佐藤医院 | トップ</title>
+    <style>
+        :root {
+            --green-100: #eaf7ef;
+            --green-200: #d7f0e2;
+            --green-500: #2bae66;
+            --green-700: #1f8a4f;
+            --text: #1a1a1a;
+            --muted: #5f6b63;
+            --white: #ffffff;
+            --card: #f7fbf8;
+            --shadow: 0 8px 20px rgba(25, 85, 55, 0.08);
+            --radius: 18px;
+            --container: 1120px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: "Noto Sans JP", system-ui, -apple-system, sans-serif;
+            color: var(--text);
+            background: var(--white);
+            line-height: 1.7;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .container {
+            width: min(var(--container), calc(100% - 32px));
+            margin: 0 auto;
+        }
+
+        .page {
+            background: var(--white);
+        }
+
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(6px);
+            border-bottom: 1px solid #d7e9dd;
+        }
+
+        .header__inner {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            align-items: center;
+            gap: 20px;
+            padding: 14px 0;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .brand__logo {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: var(--green-200);
+            display: grid;
+            place-items: center;
+            overflow: hidden;
+        }
+
+        .brand__text {
+            display: grid;
+            gap: 2px;
+        }
+
+        .brand__name {
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .brand__sub {
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        .nav {
+            justify-self: center;
+        }
+
+        .nav__list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .nav__link {
+            font-size: 13px;
+            font-weight: 600;
+            padding: 6px 12px;
+            border-radius: 999px;
+            border: 1px solid var(--green-500);
+            color: var(--green-700);
+            background: #f1fbf4;
+            transition: all 0.2s ease;
+        }
+
+        .nav__link:hover,
+        .nav__link:focus {
+            background: var(--green-500);
+            color: #fff;
+        }
+
+        .header__icons {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+
+        .header__icon {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        .header__icon img {
+            width: 18px;
+            height: 18px;
+        }
+
+        .hero {
+            background: var(--green-100);
+            padding: 40px 0 30px;
+        }
+
+        .hero__grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 28px;
+            align-items: center;
+        }
+
+        .hero__content {
+            background: var(--white);
+            padding: 30px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+        }
+
+        .hero__title {
+            font-size: clamp(26px, 4vw, 38px);
+            margin: 0 0 12px;
+            color: #1a3c2a;
+        }
+
+        .hero__subtitle {
+            margin: 0;
+            color: var(--muted);
+        }
+
+        .hero__image {
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            background: #dff0e6;
+            min-height: 260px;
+        }
+
+        .section {
+            padding: 48px 0;
+        }
+
+        .section--light {
+            background: var(--green-100);
+        }
+
+        .section__title {
+            text-align: center;
+            font-size: clamp(22px, 3vw, 30px);
+            margin: 0 auto 24px;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 8px;
+        }
+
+        .section__title::after {
+            content: "";
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: 0;
+            width: 80px;
+            height: 4px;
+            border-radius: 999px;
+            background: var(--green-500);
+        }
+
+        .card {
+            background: var(--white);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 24px;
+        }
+
+        .button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: 10px 22px;
+            border-radius: 999px;
+            background: var(--green-500);
+            color: #fff;
+            font-weight: 600;
+            box-shadow: 0 6px 14px rgba(43, 174, 102, 0.2);
+            border: 1px solid transparent;
+            transition: transform 0.2s ease, background 0.2s ease;
+        }
+
+        .button--ghost {
+            background: #fff;
+            color: var(--green-700);
+            border-color: var(--green-500);
+        }
+
+        .button:hover,
+        .button:focus {
+            transform: translateY(-2px);
+            background: var(--green-700);
+            color: #fff;
+        }
+
+        .schedule {
+            display: grid;
+            gap: 20px;
+        }
+
+        .schedule__table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        .schedule__table th,
+        .schedule__table td {
+            border: 1px solid #d3e5da;
+            padding: 10px 8px;
+            text-align: center;
+        }
+
+        .schedule__table th {
+            background: #f2fbf5;
+            font-weight: 600;
+        }
+
+        .schedule__note {
+            color: var(--muted);
+            font-size: 14px;
+            display: grid;
+            gap: 8px;
+        }
+
+        .news__list {
+            display: grid;
+            gap: 12px;
+        }
+
+        .news__item {
+            display: grid;
+            grid-template-columns: 120px 1fr auto;
+            gap: 12px;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.85);
+            padding: 12px 16px;
+            border-radius: 14px;
+            backdrop-filter: blur(6px);
+            box-shadow: 0 6px 16px rgba(25, 85, 55, 0.08);
+        }
+
+        .news__date {
+            font-weight: 600;
+            color: var(--green-700);
+        }
+
+        .news__arrow {
+            color: var(--green-500);
+            font-size: 18px;
+        }
+
+        .services__grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .services__card img {
+            border-radius: 14px;
+            margin-bottom: 12px;
+            height: 150px;
+            width: 100%;
+            object-fit: cover;
+        }
+
+        .about__content,
+        .director__grid {
+            display: grid;
+            gap: 22px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            align-items: center;
+        }
+
+        .director__image {
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            background: #edf7f1;
+        }
+
+        .staff__grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .staff__card img {
+            border-radius: 14px;
+            margin-bottom: 10px;
+            height: 180px;
+            width: 100%;
+            object-fit: cover;
+        }
+
+        .access__grid {
+            display: grid;
+            gap: 22px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        }
+
+        .access__map iframe,
+        .access__map img {
+            width: 100%;
+            height: 280px;
+            border: 0;
+            border-radius: var(--radius);
+        }
+
+        .footer {
+            background: #dff3e7;
+            padding: 32px 0;
+        }
+
+        .footer__grid {
+            display: grid;
+            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            align-items: start;
+        }
+
+        .footer__title {
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .footer__copy {
+            text-align: center;
+            margin-top: 18px;
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .text-center {
+            text-align: center;
+            margin-top: 16px;
+        }
+
+        @media (max-width: 900px) {
+            .header__inner {
+                grid-template-columns: 1fr;
+                justify-items: center;
+            }
+
+            .header__icons {
+                justify-content: center;
+            }
+
+            .hero__grid {
+                grid-template-columns: 1fr;
+            }
+
+            .news__item {
+                grid-template-columns: 1fr;
+                text-align: left;
+            }
+
+            .news__arrow {
+                justify-self: flex-end;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app" class="page"></div>
+
+    <script>
+        window.__PAGE_DATA__ = {
+            header: {
+                logo: {
+                    name: "佐藤医院",
+                    en: "Sato Clinic",
+                    image: "image/logo.png"
+                },
+                nav: [
+                    { label: "TOP", href: "#top" },
+                    { label: "お知らせ", href: "#news" },
+                    { label: "診療時間", href: "#schedule" },
+                    { label: "診療案内", href: "#services" },
+                    { label: "医院について", href: "#about" },
+                    { label: "お問い合わせ", href: "#contact" },
+                    { label: "所在地", href: "#access" },
+                    { label: "よくある質問", href: "FAQ.html" }
+                ],
+                icons: [
+                    { label: "TEL", value: "0120-000-000", href: "tel:0120000000", icon: "image/telephone_10764.png" },
+                    { label: "住所", value: "東京都台東区上野5-0-0", href: "#access", icon: "image/icon.png" },
+                    { label: "検索", value: "サイト内検索", href: "#", icon: "image/検索アイコン.png" }
+                ]
+            },
+            hero: {
+                title: "地域に根差した医療",
+                subtitle: "私たちは、地域の皆様に\n安心してきてもらえる病院でありたい。",
+                image: { src: "image/firstView.jpg", alt: "笑顔の院長" }
+            },
+            schedule: {
+                title: "診療日時のご案内",
+                table: {
+                    days: ["", "月", "火", "水", "木", "金", "土", "日"],
+                    slots: [
+                        { label: "9:00-12:00", marks: ["●", "●", "●", "-", "●", "●", "-"] },
+                        { label: "14:00-19:00", marks: ["●", "●", "●", "-", "●", "-", "-"] }
+                    ]
+                },
+                notes: [
+                    "受付時間：午前8時〜11時　午後13時〜18時",
+                    "診察時間：午前9時〜12時　午後14時〜19時",
+                    "休診日：木曜・土曜午後・日曜",
+                    "祝日は診療日もございます。事前にお電話でご確認ください。"
+                ],
+                cta: { label: "予約確認はこちら", href: "#contact" }
+            },
+            news: {
+                title: "当院からのお知らせ",
+                items: [
+                    { date: "2024/07/01", title: "夏季健診の受付を開始しました", href: "#" },
+                    { date: "2024/06/18", title: "予防接種スケジュールのご案内", href: "#" },
+                    { date: "2024/05/30", title: "受付時間変更のお知らせ", href: "#" },
+                    { date: "2024/05/10", title: "生活習慣病外来の新設について", href: "#" },
+                    { date: "2024/04/22", title: "ゴールデンウィーク診療日程", href: "#" },
+                    { date: "2024/04/01", title: "新任スタッフのご紹介", href: "#" }
+                ],
+                cta: { label: "詳しくはこちら", href: "#news" }
+            },
+            services: {
+                title: "診療案内",
+                description: "当院では、地域の皆様の健康を支えるため、幅広い内科診療を行っております。",
+                items: [
+                    {
+                        title: "一般内科",
+                        description: "風邪・腹痛・発熱など、日常的な症状から各種検査まで幅広く対応します。",
+                        image: "image/診察風景1.jpg"
+                    },
+                    {
+                        title: "生活習慣病",
+                        description: "高血圧・糖尿病・脂質異常症などの継続的な管理と予防を行います。",
+                        image: "image/診察風景2.jpg"
+                    },
+                    {
+                        title: "消化器系",
+                        description: "胃腸の不調や内視鏡検査など、専門的な診療でサポートします。",
+                        image: "image/診察風景3.jpg"
+                    },
+                    {
+                        title: "呼吸器系",
+                        description: "咳・息切れ・気管支炎など、呼吸器のお悩みに対応します。",
+                        image: "image/診察風景4.jpg"
+                    }
+                ],
+                cta: { label: "その他の診療や検査について", href: "details.html" }
+            },
+            about: {
+                title: "当院について",
+                text: "佐藤医院は、地域の皆様の健康を守り、より良い生活をサポートすることを使命としています。",
+                cta: { label: "詳しくはこちら", href: "about.html" }
+            },
+            director: {
+                title: "院長挨拶",
+                message: "佐藤医院では『地域に根差した医療』をモットーに、患者様一人ひとりに寄り添った診療を心がけています。安心して通える医院を目指します。",
+                image: { src: "image/sato_taro1.jpg", alt: "院長の写真" },
+                signature: "佐藤医院 院長 佐藤太郎"
+            },
+            staff: {
+                title: "スタッフ紹介",
+                items: [
+                    {
+                        role: "院長",
+                        name: "佐藤太郎",
+                        comment: "地域の皆様の健康を守るため、丁寧な診療を心がけています。",
+                        image: "image/sato_taro.jpg"
+                    },
+                    {
+                        role: "看護師長",
+                        name: "鈴木まり",
+                        comment: "笑顔で安心できる対応を心がけています。",
+                        image: "image/suzuki_mari.jpg"
+                    },
+                    {
+                        role: "受付・事務",
+                        name: "高橋由美",
+                        comment: "初めての方にも分かりやすくご案内します。",
+                        image: "image/takahashi_yumi.jpg"
+                    },
+                    {
+                        role: "臨床検査技師",
+                        name: "山本花",
+                        comment: "丁寧な検査で皆様の健康を支えます。",
+                        image: "image/yamamoto_hana.jpg"
+                    }
+                ]
+            },
+            access: {
+                title: "アクセス",
+                map: {
+                    embedUrl: "https://maps.google.com/maps?q=上野駅&t=&z=15&ie=UTF8&iwloc=&output=embed",
+                    alt: "医院周辺地図"
+                },
+                info: {
+                    address: "〒123-4567 東京都台東区上野5-0-0",
+                    reception: "受付時間：午前8時〜11時／午後13時〜18時",
+                    hours: "診察時間：午前9時〜12時／午後14時〜19時",
+                    holiday: "休診日：木曜・土曜午後・日曜"
+                },
+                transport: "JR上野駅より徒歩5分。お車でお越しの際は近隣のコインパーキングをご利用ください。"
+            },
+            footer: {
+                title: "佐藤医院",
+                address: "〒123-4567 東京都台東区上野5-0-0",
+                phone: "0120-000-000",
+                hours: "診療時間：8:00〜11:00 / 13:00〜18:00",
+                linksTitle: "リンク",
+                links: [
+                    { label: "診療案内", href: "details.html" },
+                    { label: "お問い合わせ", href: "info.html" },
+                    { label: "アクセス", href: "#access" }
+                ],
+                copyright: "© Sato Clinic. All rights reserved."
+            }
+        };
+
+        const app = document.getElementById("app");
+        const data = window.__PAGE_DATA__ || {};
+
+        const createElement = (tag, className, text) => {
+            const el = document.createElement(tag);
+            if (className) el.className = className;
+            if (text !== undefined) el.textContent = text;
+            return el;
+        };
+
+        const safeText = (value, fallback = "未設定") =>
+            value === undefined || value === null ? fallback : value;
+
+        const renderHeader = (container) => {
+            const header = createElement("header", "header");
+            const inner = createElement("div", "container header__inner");
+            const brand = createElement("div", "brand");
+            const logoWrap = createElement("div", "brand__logo");
+            const logoImg = document.createElement("img");
+            logoImg.src = data.header?.logo?.image || "";
+            logoImg.alt = safeText(data.header?.logo?.name, "ロゴ");
+            logoWrap.appendChild(logoImg);
+            const brandText = createElement("div", "brand__text");
+            brandText.appendChild(createElement("div", "brand__name", safeText(data.header?.logo?.name)));
+            brandText.appendChild(createElement("div", "brand__sub", safeText(data.header?.logo?.en)));
+            brand.append(logoWrap, brandText);
+
+            const nav = createElement("nav", "nav");
+            nav.setAttribute("aria-label", "グローバルナビゲーション");
+            const navList = createElement("ul", "nav__list");
+            (data.header?.nav || []).forEach((item) => {
+                const li = document.createElement("li");
+                const link = createElement("a", "nav__link", safeText(item.label));
+                link.href = item.href || "#";
+                li.appendChild(link);
+                navList.appendChild(li);
+            });
+            nav.appendChild(navList);
+
+            const icons = createElement("div", "header__icons");
+            (data.header?.icons || []).forEach((item) => {
+                const wrapper = createElement(item.href ? "a" : "div", "header__icon");
+                if (item.href) wrapper.href = item.href;
+                const iconImg = document.createElement("img");
+                iconImg.src = item.icon || "";
+                iconImg.alt = safeText(item.label, "アイコン");
+                const text = createElement("span", "header__icon-text", safeText(item.value));
+                wrapper.append(iconImg, text);
+                icons.appendChild(wrapper);
+            });
+
+            inner.append(brand, nav, icons);
+            header.appendChild(inner);
+            container.appendChild(header);
+        };
+
+        const renderHero = (container) => {
+            const section = createElement("section", "hero", "");
+            section.id = "top";
+            const inner = createElement("div", "container hero__grid");
+            const content = createElement("div", "hero__content");
+            content.appendChild(createElement("h1", "hero__title", safeText(data.hero?.title)));
+            const subtitle = createElement("p", "hero__subtitle");
+            subtitle.innerHTML = safeText(data.hero?.subtitle).replace(/\n/g, "<br>");
+            content.appendChild(subtitle);
+
+            const imageWrap = createElement("div", "hero__image");
+            const image = document.createElement("img");
+            image.src = data.hero?.image?.src || "";
+            image.alt = safeText(data.hero?.image?.alt, "ヒーロー画像");
+            imageWrap.appendChild(image);
+
+            inner.append(content, imageWrap);
+            section.appendChild(inner);
+            container.appendChild(section);
+        };
+
+        const renderSchedule = (container) => {
+            const section = createElement("section", "section section--light");
+            section.id = "schedule";
+            const inner = createElement("div", "container");
+            const title = createElement("h2", "section__title", safeText(data.schedule?.title));
+            const card = createElement("div", "card schedule");
+
+            const table = createElement("table", "schedule__table");
+            const thead = document.createElement("thead");
+            const headRow = document.createElement("tr");
+            (data.schedule?.table?.days || []).forEach((day) => {
+                headRow.appendChild(createElement("th", "", safeText(day)));
+            });
+            thead.appendChild(headRow);
+            table.appendChild(thead);
+
+            const tbody = document.createElement("tbody");
+            (data.schedule?.table?.slots || []).forEach((slot) => {
+                const row = document.createElement("tr");
+                row.appendChild(createElement("td", "", safeText(slot.label)));
+                (slot.marks || []).forEach((mark) => {
+                    row.appendChild(createElement("td", "", safeText(mark)));
+                });
+                tbody.appendChild(row);
+            });
+            table.appendChild(tbody);
+
+            const notes = createElement("div", "schedule__note");
+            (data.schedule?.notes || []).forEach((note) => {
+                notes.appendChild(createElement("div", "", safeText(note)));
+            });
+
+            const ctaWrap = createElement("div", "");
+            const cta = createElement("a", "button", safeText(data.schedule?.cta?.label));
+            cta.href = data.schedule?.cta?.href || "#";
+            ctaWrap.appendChild(cta);
+
+            card.append(table, notes, ctaWrap);
+            inner.append(title, card);
+            section.appendChild(inner);
+            container.appendChild(section);
+        };
+
+        const renderNews = (container) => {
+            const section = createElement("section", "section");
+            section.id = "news";
+            const inner = createElement("div", "container");
+            inner.appendChild(createElement("h2", "section__title", safeText(data.news?.title)));
+            const list = createElement("div", "news__list");
+            (data.news?.items || []).slice(0, 6).forEach((item) => {
+                const row = createElement("a", "news__item");
+                row.href = item.href || "#";
+                row.appendChild(createElement("div", "news__date", safeText(item.date)));
+                row.appendChild(createElement("div", "news__title", safeText(item.title)));
+                row.appendChild(createElement("div", "news__arrow", "→"));
+                list.appendChild(row);
+            });
+            const ctaWrap = createElement("div", "text-center");
+            const cta = createElement("a", "button button--ghost", safeText(data.news?.cta?.label));
+            cta.href = data.news?.cta?.href || "#";
+            ctaWrap.appendChild(cta);
+            inner.append(list, ctaWrap);
+            section.appendChild(inner);
+            container.appendChild(section);
+        };
+
+        const renderServices = (container) => {
+            const section = createElement("section", "section section--light");
+            section.id = "services";
+            const inner = createElement("div", "container");
+            inner.appendChild(createElement("h2", "section__title", safeText(data.services?.title)));
+            inner.appendChild(createElement("p", "", safeText(data.services?.description)));
+            const grid = createElement("div", "services__grid");
+            (data.services?.items || []).forEach((item) => {
+                const card = createElement("div", "card services__card");
+                const img = document.createElement("img");
+                img.src = item.image || "";
+                img.alt = safeText(item.title, "診療案内");
+                card.appendChild(img);
+                card.appendChild(createElement("h3", "", safeText(item.title)));
+                card.appendChild(createElement("p", "", safeText(item.description)));
+                grid.appendChild(card);
+            });
+            const cta = createElement("a", "button", safeText(data.services?.cta?.label));
+            cta.href = data.services?.cta?.href || "#";
+            inner.append(grid, cta);
+            section.appendChild(inner);
+            container.appendChild(section);
+        };
+
+        const renderAbout = (container) => {
+            const section = createElement("section", "section");
+            section.id = "about";
+            const inner = createElement("div", "container");
+            inner.appendChild(createElement("h2", "section__title", safeText(data.about?.title)));
+            const card = createElement("div", "card about__content");
+            card.appendChild(createElement("p", "", safeText(data.about?.text)));
+            const cta = createElement("a", "button button--ghost", safeText(data.about?.cta?.label));
+            cta.href = data.about?.cta?.href || "#";
+            card.appendChild(cta);
+            inner.appendChild(card);
+            section.appendChild(inner);
+            container.appendChild(section);
+        };
+
+        const renderDirector = (container) => {
+            const section = createElement("section", "section section--light");
+            const inner = createElement("div", "container");
+            inner.appendChild(createElement("h2", "section__title", safeText(data.director?.title)));
+            const grid = createElement("div", "director__grid card");
+            const text = createElement("div", "director__text");
+            text.appendChild(createElement("p", "", safeText(data.director?.message)));
+            text.appendChild(createElement("div", "", safeText(data.director?.signature)));
+            const imageWrap = createElement("div", "director__image");
+            const img = document.createElement("img");
+            img.src = data.director?.image?.src || "";
+            img.alt = safeText(data.director?.image?.alt, "院長画像");
+            imageWrap.appendChild(img);
+            grid.append(text, imageWrap);
+            inner.appendChild(grid);
+            section.appendChild(inner);
+            container.appendChild(section);
+        };
+
+        const renderStaff = (container) => {
+            const section = createElement("section", "section");
+            section.id = "staff";
+            const inner = createElement("div", "container");
+            inner.appendChild(createElement("h2", "section__title", safeText(data.staff?.title)));
+            const grid = createElement("div", "staff__grid");
+            (data.staff?.items || []).forEach((item) => {
+                const card = createElement("div", "card staff__card");
+                const img = document.createElement("img");
+                img.src = item.image || "";
+                img.alt = safeText(item.name, "スタッフ");
+                card.appendChild(img);
+                card.appendChild(createElement("div", "", safeText(item.role)));
+                card.appendChild(createElement("h3", "", safeText(item.name)));
+                card.appendChild(createElement("p", "", safeText(item.comment)));
+                grid.appendChild(card);
+            });
+            inner.appendChild(grid);
+            section.appendChild(inner);
+            container.appendChild(section);
+        };
+
+        const renderAccess = (container) => {
+            const section = createElement("section", "section section--light");
+            section.id = "access";
+            const inner = createElement("div", "container");
+            inner.appendChild(createElement("h2", "section__title", safeText(data.access?.title)));
+            const grid = createElement("div", "access__grid");
+
+            const mapWrap = createElement("div", "access__map");
+            if (data.access?.map?.embedUrl) {
+                const iframe = document.createElement("iframe");
+                iframe.src = data.access.map.embedUrl;
+                iframe.title = safeText(data.access?.map?.alt, "地図");
+                iframe.loading = "lazy";
+                mapWrap.appendChild(iframe);
+            } else {
+                const mapImg = document.createElement("img");
+                mapImg.src = data.access?.map?.image || "";
+                mapImg.alt = safeText(data.access?.map?.alt, "地図");
+                mapWrap.appendChild(mapImg);
+            }
+
+            const info = createElement("div", "card");
+            info.appendChild(createElement("div", "", safeText(data.access?.info?.address)));
+            info.appendChild(createElement("div", "", safeText(data.access?.info?.reception)));
+            info.appendChild(createElement("div", "", safeText(data.access?.info?.hours)));
+            info.appendChild(createElement("div", "", safeText(data.access?.info?.holiday)));
+            info.appendChild(createElement("p", "", safeText(data.access?.transport)));
+
+            grid.append(mapWrap, info);
+            inner.appendChild(grid);
+            section.appendChild(inner);
+            container.appendChild(section);
+        };
+
+        const renderFooter = (container) => {
+            const footer = createElement("footer", "footer");
+            footer.id = "contact";
+            const inner = createElement("div", "container");
+            const grid = createElement("div", "footer__grid");
+
+            const info = createElement("div", "");
+            info.appendChild(createElement("div", "footer__title", safeText(data.footer?.title)));
+            info.appendChild(createElement("div", "", safeText(data.footer?.address)));
+            info.appendChild(createElement("div", "", safeText(data.footer?.phone)));
+            info.appendChild(createElement("div", "", safeText(data.footer?.hours)));
+
+            const links = createElement("div", "");
+            links.appendChild(createElement("div", "footer__title", safeText(data.footer?.linksTitle)));
+            (data.footer?.links || []).forEach((link) => {
+                const anchor = createElement("a", "", safeText(link.label));
+                anchor.href = link.href || "#";
+                anchor.style.display = "block";
+                links.appendChild(anchor);
+            });
+
+            grid.append(info, links);
+            inner.appendChild(grid);
+            inner.appendChild(createElement("div", "footer__copy", safeText(data.footer?.copyright)));
+            footer.appendChild(inner);
+            container.appendChild(footer);
+        };
+
+        const renderPage = () => {
+            app.innerHTML = "";
+            renderHeader(app);
+            renderHero(app);
+            renderSchedule(app);
+            renderNews(app);
+            renderServices(app);
+            renderAbout(app);
+            renderDirector(app);
+            renderStaff(app);
+            renderAccess(app);
+            renderFooter(app);
+        };
+
+        renderPage();
+    </script>
+</body>
+
+</html>
